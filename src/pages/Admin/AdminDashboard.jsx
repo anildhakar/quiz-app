@@ -16,13 +16,31 @@ const AdminDashboard = () => {
     const data = await cacheOps.getAllQuizzes();
 
     const sorted = data.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
     setQuizzes(sorted);
     setLoading(false);
   };
+
+  
+  const togglePublish = async (currentQuiz) => {
+    try {
+      const updatedQuiz = { 
+        ...currentQuiz, 
+        isPublished: !currentQuiz.isPublished 
+      };
+
+      await cacheOps.saveQuiz(updatedQuiz);
+
+      setQuizzes((prevQuizzes) =>
+        prevQuizzes.map((q) => (q.id === currentQuiz.id ? updatedQuiz : q))
+      );
+    } catch (err) {
+      console.error("Failed to update status:", err);
+    }
+  };
+  
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -30,32 +48,21 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-container">
-      
       <div className="header">
         <h1>Admin Dashboard</h1>
-
-        <button
-          className="create-btn"
-          onClick={() => navigate("/admin/quiz/new")}
-        >
+        <button className="create-btn" onClick={() => navigate("/admin/quiz/new")}>
           + Create Quiz
         </button>
       </div>
 
-      
       {quizzes.length === 0 ? (
         <div className="empty">
           <p>No quizzes yet. Create your first one!</p>
-
-          <button
-            className="secondary-btn"
-            onClick={() => navigate("/admin/quiz/new")}
-          >
+          <button className="secondary-btn" onClick={() => navigate("/admin/quiz/new")}>
             Get Started
           </button>
         </div>
       ) : (
-      
         <div className="table-wrapper">
           <table className="table">
             <thead>
@@ -71,7 +78,6 @@ const AdminDashboard = () => {
             <tbody>
               {quizzes.map((quiz) => (
                 <tr key={quiz.id}>
-                  {/* TITLE */}
                   <td>
                     <div className="title">{quiz.title}</div>
                     <div className="date">
@@ -79,12 +85,10 @@ const AdminDashboard = () => {
                     </div>
                   </td>
 
-                
                   <td>
                     <div>{quiz.questions?.length || 0}</div>
-
-                    <div 
-                    style={{
+                    <div
+                      style={{
                         fontSize: "14px",
                         color: "#010101",
                         marginTop: "28px",
@@ -98,7 +102,7 @@ const AdminDashboard = () => {
                     </div>
                   </td>
 
-                  
+                
                   <td>
                     <button
                       onClick={() => togglePublish(quiz)}
@@ -110,32 +114,40 @@ const AdminDashboard = () => {
                     </button>
                   </td>
 
-                
                   <td>
-                    <span
-                      className={
-                        quiz.visibility === "public"
-                          ? "badge public"
-                          : "badge private"
-                      }
-                    >
+                    <span className={quiz.visibility === "public" ? "badge public" : "badge private"}>
                       {quiz.visibility}
                     </span>
                   </td>
 
-                  
                   <td>
-                    <div className="actions">
+                    <div className="actions-btns">
+                      <button
+                        onClick={() => navigate(`/admin/quiz/${quiz.id}/results`)}
+                        className="result-btn"
+                      >
+                        Results
+                      </button>
 
-                      <button className="result-btn">Results</button>
+                      <button
+                        className="edit-btn"
+                        onClick={() => navigate(`/admin/quiz/${quiz.id}/edit`)}
+                      >
+                        Edit
+                      </button>
 
-                      <button className="edit-btn" onClick={() => navigate(`/admin/quiz/${quiz.id}/edit`)}>Edit</button>
+                      <button
+                        className="delete"
+                        onClick={async () => {
+                          if (window.confirm("Delete this quiz?")) {
+                            await cacheOps.deleteQuiz(quiz.id);
 
-                      <button className="delete" onClick={() => {
-                           if(window.confirm("Delete this quiz?")) {
-                               cacheOps.deleteQuiz(quiz.id);
-                                  window.location.reload(); // Refresh to update list
-                                }}}>Delete</button>
+                            loadQuizzes(); 
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </td>
                 </tr>

@@ -109,15 +109,17 @@
   color: #374151;
 }
 
-.actions {
+.actions-btns {
   display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  flex-wrap: wrap;
+  justify-content: flex-end; 
+  align-items: center;       
+  gap: 12px;              
+  flex-wrap: wrap;          
+  flex-direction: row;     
 }
 
-.actions button {
-  padding: 6px 10px;
+.actions-btns button {
+  padding: 6px;
   border: none;
   cursor: pointer;
   font-size: 12px;
@@ -126,21 +128,21 @@
 }
 
 
-.actions 
+.actions-btns 
 .result-btn {
   background-color: #16a34a;
 }
 
-.actions 
+.actions-btns
 .edit-btn {
   background-color: #f59e0b;
 }
 
-.actions 
+.actions-btns
 .delete {
   background-color: #dc2626 ;
 }
 
-.actions button:hover {
+.actions-btns button:hover {
   opacity: 0.9;
 }

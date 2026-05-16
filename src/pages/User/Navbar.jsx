@@ -16,7 +16,7 @@ export const Navbar = () => {
     } else {
       logoutUser();
       navigate("/");
-    }
+    }0
   };
 
   if (!isInitialized) {
@@ -40,11 +40,11 @@ export const Navbar = () => {
           
           {isAdmin ? (
             <>
-              <Link to="/admin/dashboard" className="nav-item">
+              <Link to="/admin/dashboard" className="Dashboard-nav">
                Dashboard
               </Link>
 
-              <button className="btn logout" onClick={handleLogout}>
+              <button className="logout-nav" onClick={handleLogout}>
               Logout
               </button>
             </>
@@ -57,14 +57,14 @@ export const Navbar = () => {
                      {user.displayName}
                   </Link>
 
-                  <button className="btn logout" onClick={handleLogout}>
+                  <button className="logout-navbar" onClick={handleLogout}>
                     Logout
                   </button>
                 </>
               ) : (
                 
-                <Link to="/admin/login" className="nav-item">
-                  Admin Login 
+                <Link to="/admin/login" className="Admin-Login">
+                  Admin Login ➜
                 </Link>
               )}
             </>

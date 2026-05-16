@@ -30,7 +30,7 @@ export const authService = {
   },
 
   
-  async registerUser(username, password) {
+  async registerUser(username, password, displayName) {
     const existing = await cacheOps.getUserByUsername(username);
     if (existing) return null;
 

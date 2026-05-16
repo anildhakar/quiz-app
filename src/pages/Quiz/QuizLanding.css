@@ -1,0 +1,121 @@
+.landing-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px;
+  font-family: Arial;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+}
+
+.left {
+  flex: 1;
+}
+
+.left h1 {
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.desc {
+  margin-top: 10px;
+  color: gray;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid black;
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  flex: 1;
+  text-align: center;
+}
+
+.right {
+  width: 350px;
+}
+
+.auth-box,
+.start-box {
+  border: 2px solid black;
+  padding: 20px;
+  text-align: center;
+  
+}
+
+.tabs {
+  display: flex;
+  border: 1px solid black;
+  margin: 15px 0;
+  border-radius: 4px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 8px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  
+}
+
+.tabs .active {
+  background: black;
+  color: white;
+}
+
+input {
+  width: 95%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+}
+
+.Continue-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.btn.primary {
+  background: green;
+}
+
+.btn.secondary {
+  background: blue;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.small {
+  font-size: 12px;
+  color: gray;
+}

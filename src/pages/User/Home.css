@@ -100,23 +100,25 @@
 
 .actions {
   display: flex;
-  flex-direction: column;
   gap: 10px;
-}
-
-.btn {
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
+  
 }
 
 .btn-primary1 {
   background: green;
   color: white;
+  
 }
 
 .btn-outline1{
- background: rgb(58, 208, 208);
+ background:purple;
   color: white;
+}
+
+.navbar {
+  border-bottom: 2px solid #000;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
