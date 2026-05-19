@@ -11,6 +11,12 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import QuizEditor from "./pages/Admin/QuizEditor";
 
 import QuizLanding from "./pages/Quiz/QuizLanding";
+import QuizActive from "./pages/Quiz/QuizActive";
+import QuizResult from "./pages/Quiz/QuizResult";
+
+
+
+
 
 const ProtectedAdminRoute = ({ children }) => {
   const { isAdmin, isInitialized } = useAuth();
@@ -28,7 +34,11 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         
          <Route path="/quiz/:id" element={<QuizLanding />} />
-      
+           <Route path="/quiz/:id/attempt" element={<QuizActive />} />
+               <Route path="/quiz/:id/results" element={<QuizResult />} />
+            
+               
+                  
 
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={

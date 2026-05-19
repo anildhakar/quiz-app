@@ -1,0 +1,132 @@
+.result-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.loading {
+  padding: 40px;
+  text-align: center;
+}
+
+.score-box h1 {
+  font-size: 80px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.badge-pass {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+
+.success {
+  background: rgb(80, 180, 150);
+}
+
+.error {
+  background: red;
+  color: white;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.card {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background: white;
+}
+
+.result-box {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.result-correct {
+  flex: 1;
+  background: green;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.result-wrong {
+  flex: 1;
+  background: red;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.result-actions button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.result-actions button:hover {
+  opacity: 0.9;
+}
+
+.leaderboard-btn {
+  background: blueviolet;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.preview-btn {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.result-actions .secondary {
+  background: gray;
+  color: white;
+}
+
+.result-back {
+  margin-top: 25px;
+}
+
+.result-back a {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  background: black;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
