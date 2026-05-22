@@ -18,6 +18,8 @@ import Leaderboard from "./pages/Quiz/Leaderboard";
 import ReviewAnswer from "./pages/Quiz/ReviewAnswer";
 import Profile from "./pages/User/Profile";
 
+import QuizStats from "./pages/Admin/QuizStats";
+
 const ProtectedAdminRoute = ({ children }) => {
   const { isAdmin, isInitialized } = useAuth();
   if (!isInitialized) return null;
@@ -58,8 +60,17 @@ function AppContent() {
             <QuizEditor />
           </ProtectedAdminRoute>
         } />
+
+  <Route
+            path="/admin/quiz/:id/results"
+            element={
+              <ProtectedAdminRoute>
+                <QuizStats />
+              </ProtectedAdminRoute>
+            }
+          />
         
-          <Route path="*" element={
+  <Route path="*" element={
                   <div style={{ textAlign: 'center', padding: '50px' }}>   
                  <h1>Page Not Found</h1> </div>
   } 
