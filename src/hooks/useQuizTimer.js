@@ -3,9 +3,14 @@ import { useState, useEffect, useRef } from "react";
 export const useQuizTimer = (initialTime, onTimeUp) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const intervalRef = useRef(null);
+  const onTimeUpRef = useRef(onTimeUp);
+
+  // onTimeUp ko save rakhein taaki useEffect baar-baar trigger na ho
+  useEffect(() => {
+    onTimeUpRef.current = onTimeUp;
+  }, [onTimeUp]);
 
   useEffect(() => {
-    
     if (initialTime === null) return;
 
     setTimeLeft(initialTime);
@@ -13,18 +18,19 @@ export const useQuizTimer = (initialTime, onTimeUp) => {
     intervalRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          clearInterval(intervalRef.current);  
+          clearInterval(intervalRef.current);
           intervalRef.current = null;
-
-          if (onTimeUp) onTimeUp();
+          if (onTimeUpRef.current) onTimeUpRef.current();
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(intervalRef.current);
-  }, [initialTime, onTimeUp]);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [initialTime]);
 
   return { timeLeft, setTimeLeft };
 };

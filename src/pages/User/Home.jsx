@@ -93,7 +93,7 @@ const Home = () => {
 
                 <p className="desc">
                   {quiz.description ||
-                    "Practice this quiz to improve your skills."}
+                    "Challenge yourself with this quick quiz."}
                 </p>
 
                 <div className="question-preview">

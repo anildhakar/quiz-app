@@ -1,0 +1,111 @@
+.analysis-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+}
+
+.header-analysis {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.header-analysis h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.back-btn {
+  border: 1px solid black;
+  padding: 5px 10px;
+  background: white;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.score {
+  font-weight: bold;
+  background: #f3f4f6;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.question-block {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background: white;
+  text-align: left;
+}
+
+.q-text {
+  display: flex;
+  gap: 8px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.q-text p {
+  margin: 0;
+}
+
+.answer-box {
+  padding: 10px;
+  border: 2px solid;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+.correct {
+  background: #dcfce7;
+  border-color: green;
+  color: #15803d;
+}
+
+.wrong {
+  background: #fee2e2;
+  border-color: red;
+  color: #b91c1c;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+}
+
+.correct-box {
+  border: 2px solid #10b981;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #f0fdf4;
+  border-radius: 6px;
+  color: #15803d;
+}
+
+.explanation {
+  font-size: 14px;
+  color: #4b5563;
+  border-left: 3px solid #ccc;
+  padding-left: 10px;
+  margin-top: 10px;
+}

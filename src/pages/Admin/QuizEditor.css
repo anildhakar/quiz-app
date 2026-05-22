@@ -2,12 +2,7 @@
   max-width: 900px;
   margin: auto;
   padding: 30px;
-  font-family: Arial;
-}
-
-.loading {
-  text-align: center;
-  padding: 40px;
+  font-family: Arial, sans-serif;
 }
 
 .header {
@@ -45,6 +40,7 @@
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 .textarea {

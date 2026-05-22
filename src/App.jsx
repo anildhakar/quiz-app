@@ -14,9 +14,9 @@ import QuizLanding from "./pages/Quiz/QuizLanding";
 import QuizActive from "./pages/Quiz/QuizActive";
 import QuizResult from "./pages/Quiz/QuizResult";
 
-
-
-
+import Leaderboard from "./pages/Quiz/Leaderboard";
+import ReviewAnswer from "./pages/Quiz/ReviewAnswer";
+import Profile from "./pages/User/Profile";
 
 const ProtectedAdminRoute = ({ children }) => {
   const { isAdmin, isInitialized } = useAuth();
@@ -37,7 +37,9 @@ function AppContent() {
            <Route path="/quiz/:id/attempt" element={<QuizActive />} />
                <Route path="/quiz/:id/results" element={<QuizResult />} />
             
-               
+               <Route path="/quiz/:id/leaderboard" element={<Leaderboard />} />
+                <Route path="/quiz/:id/review" element={<ReviewAnswer />} />
+               <Route path="/profile" element={<Profile />} />
                   
 
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -56,7 +58,7 @@ function AppContent() {
             <QuizEditor />
           </ProtectedAdminRoute>
         } />
-
+        
           <Route path="*" element={
                   <div style={{ textAlign: 'center', padding: '50px' }}>   
                  <h1>Page Not Found</h1> </div>

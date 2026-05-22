@@ -14,37 +14,24 @@ const AdminDashboard = () => {
 
   const loadQuizzes = async () => {
     const data = await cacheOps.getAllQuizzes();
-
     const sorted = data.sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    );
-
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    ); 
     setQuizzes(sorted);
     setLoading(false);
   };
 
-  
   const togglePublish = async (currentQuiz) => {
     try {
-      const updatedQuiz = { 
-        ...currentQuiz, 
-        isPublished: !currentQuiz.isPublished 
-      };
-
+      const updatedQuiz = { ...currentQuiz, isPublished: !currentQuiz.isPublished };
       await cacheOps.saveQuiz(updatedQuiz);
-
-      setQuizzes((prevQuizzes) =>
-        prevQuizzes.map((q) => (q.id === currentQuiz.id ? updatedQuiz : q))
-      );
+      setQuizzes((prev) => prev.map((q) => (q.id === currentQuiz.id ? updatedQuiz : q)));
     } catch (err) {
       console.error("Failed to update status:", err);
     }
   };
-  
 
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="admin-container">
@@ -54,7 +41,7 @@ const AdminDashboard = () => {
           + Create Quiz
         </button>
       </div>
-
+ 
       {quizzes.length === 0 ? (
         <div className="empty">
           <p>No quizzes yet. Create your first one!</p>
@@ -74,75 +61,44 @@ const AdminDashboard = () => {
                 <th style={{ textAlign: "right" }}>Actions</th>
               </tr>
             </thead>
-
             <tbody>
               {quizzes.map((quiz) => (
                 <tr key={quiz.id}>
                   <td>
                     <div className="title">{quiz.title}</div>
-                    <div className="date">
-                      {new Date(quiz.createdAt).toLocaleDateString()}
-                    </div>
+                    <div className="date">{new Date(quiz.createdAt).toLocaleDateString()}</div>
                   </td>
-
                   <td>
-                    <div>{quiz.questions?.length || 0}</div>
-                    <div
-                      style={{
-                        fontSize: "14px",
-                        color: "#010101",
-                        marginTop: "28px",
-                      }}
-                    >
-                      {quiz.questions?.map((q, i) => (
-                        <div key={i}>
-                          Q{i + 1}: {q.text || "No question text"}
-                        </div>
-                      ))}
-                    </div>
+                    {/* Faltu questions loop hata kar sirf simple count rakha hai */}
+                    <strong>{quiz.questions?.length || 0} Questions</strong>
                   </td>
-
-                
                   <td>
                     <button
                       onClick={() => togglePublish(quiz)}
-                      className={
-                        quiz.isPublished ? "status published" : "status draft"
-                      }
+                      className={quiz.isPublished ? "status published" : "status draft"}
                     >
                       {quiz.isPublished ? "Published" : "Draft"}
                     </button>
                   </td>
-
                   <td>
                     <span className={quiz.visibility === "public" ? "badge public" : "badge private"}>
                       {quiz.visibility}
                     </span>
                   </td>
-
                   <td>
                     <div className="actions-btns">
-                      <button
-                        onClick={() => navigate(`/admin/quiz/${quiz.id}/results`)}
-                        className="result-btn"
-                      >
+                      <button onClick={() => navigate(`/admin/quiz/${quiz.id}/results`)} className="result-btn">
                         Results
                       </button>
-
-                      <button
-                        className="edit-btn"
-                        onClick={() => navigate(`/admin/quiz/${quiz.id}/edit`)}
-                      >
+                      <button onClick={() => navigate(`/admin/quiz/${quiz.id}/edit`)} className="edit-btn">
                         Edit
                       </button>
-
                       <button
                         className="delete"
                         onClick={async () => {
                           if (window.confirm("Delete this quiz?")) {
                             await cacheOps.deleteQuiz(quiz.id);
-
-                            loadQuizzes(); 
+                            loadQuizzes();
                           }
                         }}
                       >

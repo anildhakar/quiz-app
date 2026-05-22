@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { cacheOps } from "../../services/db";
 import { useAuth } from "../../hooks/useAuth";
-
+import { useQuizTimer } from "../../hooks/useQuizTimer"; // Hook import kiya
 import "./QuizActive.css";
 
 const QuizActive = () => {
@@ -16,19 +16,16 @@ const QuizActive = () => {
   const [answers, setAnswers] = useState([]);
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(null);
+  const [initialTime, setInitialTime] = useState(null);
   const [startTime] = useState(new Date());
 
-  
   const handleFinish = useCallback(async () => {
     if (!quiz || !user) return;
 
     let score = 0;
     answers.forEach((ans, i) => {
       const qIndex = order[i];
-      if (ans === quiz.questions[qIndex].correctIndex) {
-        score++;
-      }
+      if (ans === quiz.questions[qIndex].correctIndex) score++;
     });
 
     const attempt = {
@@ -48,7 +45,9 @@ const QuizActive = () => {
     navigate(`/quiz/${quiz.id}/results`, { state: { attemptId: attempt.id } });
   }, [quiz, user, answers, order, startTime, navigate]);
 
-  
+  // Custom Timer Hook ka use kiya
+  const { timeLeft } = useQuizTimer(initialTime, handleFinish);
+
   useEffect(() => {
     const load = async () => {
       if (!user) return navigate(`/quiz/${id}`);
@@ -68,9 +67,7 @@ const QuizActive = () => {
           qOrder = [];
           oldAttempt.answers.forEach((ans, i) => {
             const qIndex = oldAttempt.questionOrder[i];
-            if (ans !== data.questions[qIndex].correctIndex) {
-              qOrder.push(qIndex);
-            }
+            if (ans !== data.questions[qIndex].correctIndex) qOrder.push(qIndex);
           });
 
           if (qOrder.length === 0) {
@@ -86,26 +83,12 @@ const QuizActive = () => {
       setAnswers(new Array(qOrder.length).fill(-1));
 
       if (data.timeLimitMinutes > 0) {
-        setTimeLeft(data.timeLimitMinutes * 60);
+        setInitialTime(data.timeLimitMinutes * 60);
       }
       setLoading(false);
     };
     load();
   }, [id, user, navigate, location.state]);
-
-  useEffect(() => {
-    if (timeLeft === null) return;
-    if (timeLeft <= 0) {
-      handleFinish();
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setTimeLeft((t) => t - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [timeLeft, handleFinish]);
 
   const selectOption = (opt) => {
     const copy = [...answers];
@@ -113,22 +96,18 @@ const QuizActive = () => {
     setAnswers(copy);
   };
 
-  if (loading || !quiz) {
-    return <div className="loading">Loading Quiz...</div>;
-  }
+  if (loading || !quiz) return <div className="loading">Loading Quiz...</div>;
 
   const q = quiz.questions[order[currentIdx]];
   const progress = ((currentIdx + 1) / order.length) * 100;
 
   return (
     <div className="quiz-container">
-    
       <div className="quiz-header">
         <div>
           <h1>{quiz.title}</h1>
           <p>Question {currentIdx + 1} of {order.length}</p>
         </div>
-
         <div className="timer">
           {timeLeft !== null
             ? `${Math.floor(timeLeft / 60)}:${String(timeLeft % 60).padStart(2, "0")}`
@@ -136,16 +115,13 @@ const QuizActive = () => {
         </div>
       </div>
 
-      
       <div className="progress-bar">
         <div className="progress-fill" style={{ width: `${progress}%` }}></div>
       </div>
 
-    
       <div className="main">
         <div className="question-box">
           <h2>Question {currentIdx + 1}. {q.text}</h2>
-
           <div className="options">
             {q.options.map((opt, i) => (
               <div
@@ -161,16 +137,10 @@ const QuizActive = () => {
             ))}
           </div>
 
-          
           <div className="nav">
-            <button
-              className="Prev"
-              disabled={currentIdx === 0}
-              onClick={() => setCurrentIdx((p) => p - 1)}
-            >
+            <button className="Prev" disabled={currentIdx === 0} onClick={() => setCurrentIdx((p) => p - 1)}>
               Prev
             </button>
-
             {currentIdx === order.length - 1 ? (
               <button className="finish" onClick={handleFinish}>
                 Finish Quiz
