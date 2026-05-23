@@ -69,7 +69,7 @@ const AdminDashboard = () => {
                     <div className="date">{new Date(quiz.createdAt).toLocaleDateString()}</div>
                   </td>
                   <td>
-                    {/* Faltu questions loop hata kar sirf simple count rakha hai */}
+                
                     <strong>{quiz.questions?.length || 0} Questions</strong>
                   </td>
                   <td>

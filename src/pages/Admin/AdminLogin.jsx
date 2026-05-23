@@ -33,10 +33,8 @@ const AdminLogin = () => {
 
       <div className="login-card">
 
-    
         <h1 className="title">Admin Access</h1>
 
-    
         <form onSubmit={handleSubmit} className="form">
 
           <label className="label">Credentials</label>
@@ -58,16 +56,16 @@ const AdminLogin = () => {
 
         </form>
 
-        
+
         <button className="back-btn" onClick={() => navigate("/")}>
           Back to Public Home page View
         </button>
 
       </div>
 
-      
+
       <div className="footer">
-       Strictly restricted access. Activities are logged locally.
+        Strictly restricted access. Activities are logged locally.
       </div>
 
     </div>

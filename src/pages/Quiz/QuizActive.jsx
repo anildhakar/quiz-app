@@ -65,7 +65,7 @@ const QuizActive = () => {
 
         if (oldAttempt) {
           qOrder = [];
-          oldAttempt.answers.forEach((ans, i) => {
+          oldAttempt.answers.forEach((ans, i) => { //retry wrong ans
             const qIndex = oldAttempt.questionOrder[i];
             if (ans !== data.questions[qIndex].correctIndex) qOrder.push(qIndex);
           });

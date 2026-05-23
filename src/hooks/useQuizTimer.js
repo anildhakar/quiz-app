@@ -5,7 +5,6 @@ export const useQuizTimer = (initialTime, onTimeUp) => {
   const intervalRef = useRef(null);
   const onTimeUpRef = useRef(onTimeUp);
 
-  // onTimeUp ko save rakhein taaki useEffect baar-baar trigger na ho
   useEffect(() => {
     onTimeUpRef.current = onTimeUp;
   }, [onTimeUp]);
